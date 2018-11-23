@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MyTest" default="dist" basedir=".">
+<project name="MyTest" default="run" basedir=".">
 
 	<!-- Properties -->
 	<property name="src.dir" value="src"/>
@@ -52,6 +52,12 @@
         	basedir="${build.dir}"
         	update="true">
         </jar>
+	</target>
+	
+	<target name="run" depends="dist">
+		  <java dir="${dist.dir}" classname="hr.wst.MyTestFile" fork="yes">
+		       <classpath path="${dist.dir}/${jarFileName}"/>
+		  </java>
 	</target>
 
 </project>

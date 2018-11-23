@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MyTest" default="dist" basedir=".">
+
+	<!-- Properties -->
+	<property name="src.dir" value="src"/>
+	<property name="build.dir" value="bin"/>
+	<property name="dist.dir" value="dist"/>
+	<property name="buildSource" value="1.7"/>
+	<property name="debuglevel" value="source,lines,vars"/>
+	<property name="encoding" value="iso-8859-1"/>
+	<property name="jarFileName" value="MyTest.jar"/>
+
+
+	<!-- Targets -->
+	<target name="init">
+		<echo message="Initializing ${ant.project.name}"/>
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${dist.dir}"/>
+	</target>
+
+	<target name="clean">
+		<echo message="Cleaning ${ant.project.name}"/>
+		<delete includeemptydirs="true" verbose="true">
+		   <fileset dir="${build.dir}">
+		      <include name="**/*"/>
+		   </fileset>
+		   <fileset dir="${dist.dir}">
+		      <include name="**/*"/>
+		   </fileset>
+		</delete>		
+	</target>
+
+	<target name="compile" depends="init, clean">
+        <echo message="Compiling ${ant.project.name}"/>
+        <javac
+        	debug="true"
+        	debuglevel="${debuglevel}"
+        	destdir="${build.dir}"
+        	source="${buildSource}"
+        	verbose="true"
+        	encoding="${encoding}">
+            <src path="${src.dir}"/>
+        </javac>
+	</target>
+
+
+
+	<target name="dist" depends="compile">
+		<echo message="Packaging ${ant.project.name} for distribution"/>
+        <jar
+        	destfile="${dist.dir}/${jarFileName}"
+        	basedir="${build.dir}"
+        	update="true">
+        </jar>
+	</target>
+
+</project>
